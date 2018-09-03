@@ -33,8 +33,9 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}/{password}")
-    public User retrieveUser(@PathVariable String username, @PathVariable String password) throws UserException {
-        Optional<User> user = service.findByUsernameAndPassword(username, password);
-        return user.get();
+    public User retrieveUser(@PathVariable String username, @PathVariable String password) {
+        User user = service.findByUsernameAndPassword(username, password);
+
+        return user;
     }
 }

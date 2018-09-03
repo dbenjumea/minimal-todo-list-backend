@@ -1,10 +1,17 @@
 package com.dbenjumea.minimaltodolistbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+//To avoid JSON infinite recursion for bi-directional relationship
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User implements Serializable {
     @Id
     @GeneratedValue
