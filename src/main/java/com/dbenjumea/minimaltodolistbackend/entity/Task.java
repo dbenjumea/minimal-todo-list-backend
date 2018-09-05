@@ -3,14 +3,15 @@ package com.dbenjumea.minimaltodolistbackend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 public class Task implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id", unique = true, nullable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -26,7 +27,9 @@ public class Task implements Serializable {
     private LocalDate last_update;
 
     @JsonIgnore
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Task(){

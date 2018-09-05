@@ -1,12 +1,15 @@
 package com.dbenjumea.minimaltodolistbackend.resource;
 
 import com.dbenjumea.minimaltodolistbackend.entity.Task;
+import com.dbenjumea.minimaltodolistbackend.entity.User;
 import com.dbenjumea.minimaltodolistbackend.repository.TaskRepository;
 import com.dbenjumea.minimaltodolistbackend.service.TaskService;
+import com.dbenjumea.minimaltodolistbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -20,13 +23,19 @@ public class TaskController {
     @Autowired
     TaskService service;
 
+    @Autowired
+    UserService userService;
+
     @DeleteMapping("/tasks/delete/{id}")
     public void deleteTask(@PathVariable long id) {
         service.deleteById(id);
     }
 
-    @PostMapping("/task/save")
-    public ResponseEntity<Task> saveTask(@RequestBody Task task) {
+    @PostMapping("/task/save/{userId}")
+    public ResponseEntity<Task> saveTask(@RequestBody Task task, @PathVariable Long userId) {
+        Optional<User> user = userService.findById(userId);
+        task.setUser(user.get());
+        task.setLast_update(LocalDate.now());
         Task savedTask = service.save(task);
 
         return ResponseEntity.ok(savedTask);

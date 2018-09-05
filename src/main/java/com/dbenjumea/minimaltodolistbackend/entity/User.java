@@ -13,8 +13,8 @@ import java.util.Set;
 //        property = "id")
 public class User implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", unique = true, nullable = false)
     private Long id;
 
     @Column(nullable = false)
