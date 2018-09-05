@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 //To avoid JSON infinite recursion for bi-directional relationship
@@ -25,6 +26,9 @@ public class Task implements Serializable {
 
     @Column(nullable = false)
     private Integer days;
+
+    @Column(nullable = false)
+    private LocalDate last_update;
 
     @ManyToOne
     private User user;
@@ -63,6 +67,14 @@ public class Task implements Serializable {
 
     public void setDays(Integer days) {
         this.days = days;
+    }
+
+    public LocalDate getLast_update() {
+        return last_update;
+    }
+
+    public void setLast_update(LocalDate last_update) {
+        this.last_update = last_update;
     }
 
     public User getUser() {

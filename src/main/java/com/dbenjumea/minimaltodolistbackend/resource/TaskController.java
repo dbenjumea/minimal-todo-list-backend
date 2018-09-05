@@ -20,21 +20,21 @@ public class TaskController {
     @Autowired
     TaskService service;
 
-    @DeleteMapping("/tasks/{id}")
+    @DeleteMapping("/tasks/delete/{id}")
     public void deleteTask(@PathVariable long id) {
         service.deleteById(id);
     }
 
-    @PostMapping("/task/create")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    @PostMapping("/task/save")
+    public ResponseEntity<Task> saveTask(@RequestBody Task task) {
         Task savedTask = service.save(task);
 
         return ResponseEntity.ok(savedTask);
 
     }
 
-    @PutMapping("/tasks/{id}")
-    public ResponseEntity<Object> updatetask(@RequestBody Task task, @PathVariable long id) {
+    @PutMapping("/tasks/update/{id}")
+    public ResponseEntity<Object> updateTask(@RequestBody Task task, @PathVariable long id) {
 
         Optional<Task> taskOptional = service.findById(id);
 

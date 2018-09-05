@@ -1,7 +1,6 @@
 package com.dbenjumea.minimaltodolistbackend.service;
 
 import com.dbenjumea.minimaltodolistbackend.entity.Task;
-import com.dbenjumea.minimaltodolistbackend.entity.User;
 import com.dbenjumea.minimaltodolistbackend.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

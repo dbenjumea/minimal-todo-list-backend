@@ -3,16 +3,14 @@ package com.dbenjumea.minimaltodolistbackend.resource;
 import com.dbenjumea.minimaltodolistbackend.entity.User;
 import com.dbenjumea.minimaltodolistbackend.repository.UserRepository;
 import com.dbenjumea.minimaltodolistbackend.service.UserService;
-import org.omg.CORBA.UserException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -26,7 +24,7 @@ public class UserController {
         return "Hello World";
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/user/all")
     public List<User> retrieveAllUsers() {
         List<User> list = repository.findAll();
         return list;

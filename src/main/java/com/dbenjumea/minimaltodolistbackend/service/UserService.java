@@ -36,6 +36,7 @@ public class UserService implements GenericService <User> {
     }
 
     public User findByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
+        User user = userRepository.findByUsernameAndPassword(username, password);
+        return user;
     }
 }

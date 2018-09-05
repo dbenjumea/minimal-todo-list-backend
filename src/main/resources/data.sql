@@ -5,4 +5,8 @@ values(1,'pwd123', 'test');
 
 -- For task is ID, DAYS, DESCRIPTION, TITLE, USER
 insert into task
-values(1,2, 'First test task', 'Test Task 1', 1);
+values(1,2, 'Develop Back-end', '2018-01-01', 'Task 1', 1);
+insert into task
+values(2,3, 'Develop Front-end', '2018-01-02', 'Task 2', 1);
+insert into task
+values(3,1, 'Create database', '2018-01-03', 'Task 3', 1);
