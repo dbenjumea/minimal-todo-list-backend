@@ -1,17 +1,12 @@
 package com.dbenjumea.minimaltodolistbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-//To avoid JSON infinite recursion for bi-directional relationship
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Task implements Serializable {
     @Id
     @GeneratedValue
@@ -30,7 +25,8 @@ public class Task implements Serializable {
     @Column(nullable = false)
     private LocalDate last_update;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Task(){
