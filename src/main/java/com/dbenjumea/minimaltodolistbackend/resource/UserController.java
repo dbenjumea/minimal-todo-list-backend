@@ -14,10 +14,10 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
     @Autowired
-    UserService service;
+    private UserService service;
 
     @GetMapping
     public String getHelloWorld() {

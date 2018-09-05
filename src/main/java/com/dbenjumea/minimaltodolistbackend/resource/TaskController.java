@@ -2,7 +2,6 @@ package com.dbenjumea.minimaltodolistbackend.resource;
 
 import com.dbenjumea.minimaltodolistbackend.entity.Task;
 import com.dbenjumea.minimaltodolistbackend.entity.User;
-import com.dbenjumea.minimaltodolistbackend.repository.TaskRepository;
 import com.dbenjumea.minimaltodolistbackend.service.TaskService;
 import com.dbenjumea.minimaltodolistbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +16,19 @@ import java.util.Optional;
 @CrossOrigin
 public class TaskController {
 
-    @Autowired
-    TaskRepository repository;
+    private TaskService taskService;
+
+    private UserService userService;
 
     @Autowired
-    TaskService service;
-
-    @Autowired
-    UserService userService;
+    public TaskController(TaskService taskService, UserService userService) {
+        this.taskService = taskService;
+        this.userService = userService;
+    }
 
     @DeleteMapping("/tasks/delete/{id}")
     public void deleteTask(@PathVariable long id) {
-        service.deleteById(id);
+        taskService.deleteById(id);
     }
 
     @PostMapping("/task/save/{userId}")
@@ -36,7 +36,7 @@ public class TaskController {
         Optional<User> user = userService.findById(userId);
         task.setUser(user.get());
         task.setLast_update(LocalDate.now());
-        Task savedTask = service.save(task);
+        Task savedTask = taskService.save(task);
 
         return ResponseEntity.ok(savedTask);
 
@@ -45,12 +45,12 @@ public class TaskController {
     @PutMapping("/tasks/update/{id}")
     public ResponseEntity<Object> updateTask(@RequestBody Task task, @PathVariable long id) {
 
-        Optional<Task> taskOptional = service.findById(id);
+        Optional<Task> taskOptional = taskService.findById(id);
 
         if (!taskOptional.isPresent())
             return ResponseEntity.notFound().build();
 
-        service.save(task);
+        taskService.save(task);
 
         return ResponseEntity.ok("task created");
     }
